@@ -1,0 +1,7 @@
+<config>
+	<file></file>
+	<autostart>true</autostart>
+	<backcolor>0x000000</backcolor>
+	<frontcolor>0xCCCCCC</frontcolor>
+	<screencolor>0x666666</screencolor>
+</config>

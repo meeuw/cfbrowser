@@ -1,0 +1,59 @@
+Installing Apache HTTP 2.0 server with
+ DomainName =    ###
+ ServerName =    ####
+ ServerAdmin =   ##########
+ ServerPort =    80
+ ServerSslPort = 80
+ ServerRoot =    C:/server/Apache2.2
+Rewrote C:/server/Apache2.2/conf/default/httpd-autoindex.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-autoindex.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-autoindex.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-vhosts.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-vhosts.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-vhosts.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-default.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-default.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-default.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-manual.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-manual.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-manual.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-mpm.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-mpm.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-mpm.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-info.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-info.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-info.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-dav.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-dav.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-dav.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-languages.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-languages.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-languages.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-win.conf
+ to C:/server/Apache2.2/conf/default/httpd.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-win.conf
+Rewrote C:/server/Apache2.2/conf/default/httpd-userdir.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-userdir.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-userdir.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-ssl.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-ssl.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-ssl.conf.in
+Rewrote C:/server/Apache2.2/conf/default/httpd-multilang-errordoc.conf.in
+ to C:/server/Apache2.2/conf/default/httpd-multilang-errordoc.conf
+Successfully removed C:\server\Apache2.2\conf\default\httpd-multilang-errordoc.conf.in
+Existing file C:/server/Apache2.2/conf/magic preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-autoindex.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-vhosts.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-default.conf preserved
+Existing file C:/server/Apache2.2/conf/mime.types preserved
+Existing file C:/server/Apache2.2/conf/charset.conv preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-manual.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-mpm.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-info.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-dav.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-languages.conf preserved
+Existing file C:/server/Apache2.2/conf/httpd.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-userdir.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-ssl.conf preserved
+Existing file C:/server/Apache2.2/conf/extra/httpd-multilang-errordoc.conf preserved
+Successfully removed C:\server\Apache2.2\conf\default\InstallConf22.awk

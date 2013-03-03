@@ -1,0 +1,22 @@
+<html>
+<link rel="stylesheet" type="text/css" media="screen" href="static/sfbrowser/css/sfbrowser.css" />
+<script type="text/javascript" src="static/scripts/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="static/sfbrowser/SWFObject.js"></script>
+<script type="text/javascript" src="static/sfbrowser/jquery.tinysort.min.js"></script>
+<script type="text/javascript" src="static/sfbrowser/jquery.sfbrowser.js"></script>
+<script type="text/javascript" src="static/sfbrowser/lang/en_EN.js"></script>
+<script type="text/javascript">
+        jQuery.sfbrowser.defaults.connector = "django";
+        jQuery.sfbrowser.defaults.sfbpath = "sfbrowser/";
+        jQuery.sfbrowser.defaults.base = "../data/";
+        jQuery.sfbrowser.defaults.previewbytes = 600;
+        jQuery.sfbrowser.defaults.deny = [];
+        jQuery.sfbrowser.defaults.browser = "";
+        jQuery.sfbrowser.defaults.debug = false;
+        jQuery.sfbrowser.defaults.maxsize = 100;
+        jQuery.sfbrowser.defaults.browser = "{{ browser|safe }}";
+        $(document).ready(function() {
+                $.sfb();
+        });
+</script>
+</html>
