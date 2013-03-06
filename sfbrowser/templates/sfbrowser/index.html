@@ -8,15 +8,33 @@
 <script type="text/javascript">
         jQuery.sfbrowser.defaults.connector = "django";
         jQuery.sfbrowser.defaults.sfbpath = "sfbrowser/";
-        jQuery.sfbrowser.defaults.base = "../data/";
+        jQuery.sfbrowser.defaults.base = "";
         jQuery.sfbrowser.defaults.previewbytes = 600;
         jQuery.sfbrowser.defaults.deny = [];
         jQuery.sfbrowser.defaults.browser = "";
         jQuery.sfbrowser.defaults.debug = false;
         jQuery.sfbrowser.defaults.maxsize = 100;
         jQuery.sfbrowser.defaults.browser = "{{ browser|safe }}";
-        $(document).ready(function() {
-                $.sfb();
-        });
+        jQuery.sfbrowser.defaults.x = 0;
+        jQuery.sfbrowser.defaults.y = 0;
+        jQuery.sfbrowser.defaults.w = 700;
+        jQuery.sfbrowser.defaults.h = 500;
+        jQuery.sfbrowser.defaults.select = function(files) {
+            $.each(files, function(index, file) {
+                console.log(file["file"])
+            });
+        }
+        //$(document).ready(function() {
+        //        $.sfb({base:'test'});
+        //});
 </script>
+<body>
+    <p>Welcome to the file manager, please select the container where you would like to download or upload files.</p>
+    <ul>
+    {% for container in containers %}
+    <li><input type="button" value="{{container}}" onclick="$.sfb({base:'{{container}}'});"></li>
+    {% endfor %}
+    </ul>
+    <div></div>
+</body>
 </html>
