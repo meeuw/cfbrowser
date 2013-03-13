@@ -1,16 +1,24 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from sfbrowser.views import PathHelper
 
+class PathHelperTest(TestCase):
+    r = ['def', 'abc', 'abc/def', 'ghi', 'def/ghi']
+    def testFulldirectoryFilename(self):
+        p = PathHelper(fulldirectory='abc/def', filename='ghi')
+        self.assertEqual([p.directory, p.container, p.fulldirectory, p.filename, p.directoryfilename], self.r)
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+        p = PathHelper(fulldirectory='abc//def', filename='/ghi/')
+        self.assertEqual([p.directory, p.container, p.fulldirectory, p.filename, p.directoryfilename], self.r)
+
+        p = PathHelper(fulldirectory='abc//def//ghi')
+        self.assertEqual(p.container, 'abc')
+        self.assertEqual(p.directory, 'def')
+        self.assertEqual(p.fulldirectory, 'abc/def/ghi')
+
+        #p = PathHelper(fulldirectory='abc/def/')
+    def testFullpath(self):
+        p = PathHelper(fullpath='abc/def/ghi')
+        self.assertEqual([p.directory, p.container, p.fulldirectory, p.filename, p.directoryfilename], self.r)
+
+        p = PathHelper(fullpath='abc//def//ghi')
+        self.assertEqual([p.directory, p.container, p.fulldirectory, p.filename, p.directoryfilename], self.r)

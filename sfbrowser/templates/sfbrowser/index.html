@@ -20,13 +20,15 @@
         jQuery.sfbrowser.defaults.w = 700;
         jQuery.sfbrowser.defaults.h = 500;
         jQuery.sfbrowser.defaults.select = function(files) {
+                console.log(files);
             $.each(files, function(index, file) {
-                console.log(file["file"])
+                var file_split = file["file"].split("/");
+                file_split.splice(0, 1);
+                file_name = file_split.join("/");
+                $("#dllinks").append($("<a>"+file_name+"</a>").attr({href:'/sfbrowser/connectors/django/sfbrowser.django?a=download&file='+file_name}));
+                $("#dllinks").append($("<br>"));
             });
         }
-        //$(document).ready(function() {
-        //        $.sfb({base:'test'});
-        //});
 </script>
 <body>
     <p>Welcome to the file manager, please select the container where you would like to download or upload files.</p>
@@ -35,6 +37,6 @@
     <li><input type="button" value="{{container}}" onclick="$.sfb({base:'{{container}}'});"></li>
     {% endfor %}
     </ul>
-    <div></div>
+    <div id="dllinks"></div>
 </body>
 </html>

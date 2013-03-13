@@ -1136,7 +1136,7 @@
 		aSelect = unique(aSelect);
 		// return clones, not the objects
 		for (i=0;i<aSelect.length;i++) {
-			File = aSelect[i];
+			oFile = aSelect[i];
 			var oDupl = new Object();
 			for (var p in oFile) oDupl[p] = oFile[p];
 			aSelect[i] = oDupl;
