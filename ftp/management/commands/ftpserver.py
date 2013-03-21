@@ -1,12 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
-from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import TLS_FTPHandler
 from pyftpdlib.servers import FTPServer
 from pyftpdlib.filesystems import AbstractedFS
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-import time
 from fakefs.fakefs import FakeFS, PathHelper
 import cloudfiles
 from config.models import Config
@@ -196,7 +194,7 @@ class CloudFS(AbstractedFS):
         """Perform a stat() system call on the given path."""
         # on python 2 we might also get bytes from os.lisdir()
         #assert isinstance(path, unicode), path
-        raise NotImplementedError
+        return self.lstat(path)
 
     def lstat(self, path):
         """Like stat but does not follow symbolic links."""
@@ -270,7 +268,6 @@ Authorizer class: upon login users will be authenticated against the user
 database created and maintained in django.
 """
 class DjangoFtpAuthorizer:
-
     def has_user(self, username):
         try:
             u = User.objects.get(username = username)
@@ -287,18 +284,6 @@ class DjangoFtpAuthorizer:
     def get_msg_quit(self, username):
         return 'Please come again'
 
-    def r_perm(self, username, obj=None):
-        try:
-            return read_perms
-        except:
-            return False
-
-    def w_perm(self, username, obj=None):
-        try:
-            return write_perms
-        except:
-            return False
-
     def has_perm(self, username, perm, path=None):
         u = User.objects.get(username = username)
         if u.is_superuser:
@@ -306,6 +291,9 @@ class DjangoFtpAuthorizer:
         else:
             return perm in read_perms
     
+    def get_perms(self, username):
+        return read_perms+write_perms
+
     def impersonate_user(self, username, password):
         """Impersonate another user (noop).
 

@@ -122,6 +122,8 @@ INSTALLED_APPS = (
     'sfbrowser',
     'accounts',
     'config',
+    'ftp',
+    'fakefs',
 )
 
 # A sample logging configuration. The only tangible logging

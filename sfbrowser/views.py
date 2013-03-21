@@ -12,10 +12,12 @@ import json
 import re
 import cloudfiles
 import time
+import os.path
 @login_required
 def index(request):
     browser = ''
-    with open('sfbrowser/static/sfbrowser/browser.html') as f:
+    with open(os.path.dirname(os.path.abspath(__file__))+
+        '/static/sfbrowser/browser.html') as f:
         browser = re.match(r'.*<body[^>]*>(.*)</body>.*', f.read(),
             re.DOTALL).group(1)
         browser = re.sub('[\n\r\t]', '', browser)
