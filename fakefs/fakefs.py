@@ -1,5 +1,6 @@
 from django.core.cache import cache
 import datetime
+from os.path import basename
 
 class FakeFS:
     def fileinfo(self, name, mime, size=0, dt=None):
@@ -43,7 +44,8 @@ class FakeFS:
                 ds += '/'
         for fakefoldername in fakefolders:
             if not fakefoldername in filelist:
-                filelist[fakefoldername] = self.fileinfo(fakefoldername, 'folder')
+                filelist[fakefoldername] = \
+                    self.fileinfo(basename(fakefoldername), 'folder')
         ret = []
         for filename, fileinfo in filelist.iteritems():
             filename_path = PathHelper(
