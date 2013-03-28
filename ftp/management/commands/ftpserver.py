@@ -66,7 +66,7 @@ class FakeCloudFS(FakeFS):
         )
     def open(self, path, mode):
         if 'w' in mode: self._write = True
-        return self.get_container(path.container).create_object(path.directoryfilename)
+        return self.create_object(path)
 
 class IterableThread(Thread):
     def __init__(self, storage_object):

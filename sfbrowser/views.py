@@ -69,14 +69,12 @@ class SFBrowserFS(FakeFS):
             authurl=Config.objects.get(key='authurl').value,
         )
     def uploading(self, path):
-        container = self.get_container()
-        storage_object = container.create_object(path.directoryfilename)
+        storage_object = self.create_object(path)
         storage_object.send(B64stream(request))
         return fileinfo(path.filename, "application/octet-stream", 0, 0)
 
     def download(self, path):
-        container = self.get_container(path.container)
-        return container.get_object(path.directoryfilename)
+        return self.get_object(path)
 
 @login_required
 def sfbrowser(request):

@@ -1,6 +1,7 @@
 from django.core.cache import cache
 import datetime
 from os.path import basename
+import mimetypes
 
 class FakeFS:
     def fileinfo(self, name, mime, size=0, dt=None):
@@ -28,8 +29,7 @@ class FakeFS:
         filelist = {}
         fakefolders = self.get_fakefolders(path)
         for obj in container.list_objects_info():
-            obj_path = PathHelper(
-                fullpath='%s/%s'%(path.container, obj['name']))
+            obj_path = PathHelper(fullpath='%s/%s'%(path.container, obj['name']))
             filelist[obj_path.directoryfilename] = self.fileinfo(
                 obj_path.filename,
                 obj['content_type'],
@@ -85,6 +85,20 @@ class FakeFS:
         else:
             container = self.get_container(path.container)
             container.delete_object(path.directoryfilename)
+
+    def create_object(self, path):
+        container = self.get_container(path.container)
+        storage_object = container.create_object(path.directoryfilename)
+        storage_object.content_type = mimetypes.guess_type(
+            path.directoryfilename)[0]
+        if not storage_object.content_type:
+            storage_object.content_type = 'application/octet-stream'
+        return storage_object
+
+    def get_object(self, path):
+        container = self.get_container(path.container)
+        return container.get_object(path.directoryfilename)
+
 
 class PathHelper:
     def __init__(self, **kwargs):
