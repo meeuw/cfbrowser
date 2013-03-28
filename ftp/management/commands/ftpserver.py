@@ -140,16 +140,17 @@ class CloudFS(AbstractedFS):
         """Create the specified directory."""
         assert isinstance(path, unicode), path
         self.fakecloudfs.addFolder(PathHelper(fullpath=path))
+        self.filelist = (None, None)
 
     def listdir(self, path):
         """List the content of a directory."""
         assert isinstance(path, unicode) or path == '', path
         path = "/".join(filter(None, path.split('/')))
+        self.fakecloudfs.auth(self.user, True, False)
+        ret = []
         if path == '':
             path = ''
-            ret = []
             access = []
-            self.fakecloudfs.auth(self.user, True, False)
             for container in Container.objects.filter(user=self.user,
                 read=True):
                 access.append(container.container)
@@ -160,9 +161,7 @@ class CloudFS(AbstractedFS):
                     ret.append(unicode(container))
             self.filelist = (path, fileinfos)
         else:
-            self.fakecloudfs.auth(self.user, True, False)
             self.filelist = (path, self.fakecloudfs.fileList(path))
-            ret = []
             for f in self.filelist[1]:
                 ret.append(f.f_name)
         return ret
@@ -170,8 +169,7 @@ class CloudFS(AbstractedFS):
     def rmdir(self, path):
         """Remove the specified directory."""
         assert isinstance(path, unicode), path
-        raise NotImplementedError
-        # FIXME remove folder
+        self.fakecloudfs.delete(PathHelper(fullpath=path))
 
     def remove(self, path):
         """Remove the specified file."""
@@ -188,7 +186,7 @@ class CloudFS(AbstractedFS):
     def chmod(self, path, mode):
         """Change file/directory mode."""
         assert isinstance(path, unicode), path
-        raise NotImplementedError
+        return # noop
 
     def stat(self, path):
         """Perform a stat() system call on the given path."""
@@ -212,6 +210,7 @@ class CloudFS(AbstractedFS):
         print 'lstat', path.fullpath, '- <',
         for f in self.filelist[1]: print '%s/%s'%(self.filelist[0],f.f_name),
         print '>'
+        raise OSError(2, 'No such file or directory')
 
     def isfile(self, path):
         """Return True if path is a file."""
@@ -285,11 +284,7 @@ class DjangoFtpAuthorizer:
         return 'Please come again'
 
     def has_perm(self, username, perm, path=None):
-        u = User.objects.get(username = username)
-        if u.is_superuser:
-            return write_perms+read_perms
-        else:
-            return perm in read_perms
+        return write_perms+read_perms
     
     def get_perms(self, username):
         return read_perms+write_perms

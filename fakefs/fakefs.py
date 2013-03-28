@@ -13,7 +13,7 @@ class FakeFS:
         return None
 
     def get_container(self, container):
-	return self.conn.create_container(container)
+        return self.conn.create_container(container)
 
     def get_fakefolders(self, path):
         fakefolders = cache.get('fakefolders_'+path.container)
@@ -78,8 +78,13 @@ class FakeFS:
             container.delete_object(path.directoryfilename)
     def delete(self, path):
         # u'a': [u'delete'], u'folder': [u'test/'], u'file': [u'4321']
-        container = self.get_container(path.container)
-        container.delete_object(path.directoryfilename)
+        fakefolders = self.get_fakefolders(path)
+        if path.directoryfilename in fakefolders:
+            fakefolders.remove(path.directoryfilename)
+            self.set_fakefolders(fakefolders, path)
+        else:
+            container = self.get_container(path.container)
+            container.delete_object(path.directoryfilename)
 
 class PathHelper:
     def __init__(self, **kwargs):
