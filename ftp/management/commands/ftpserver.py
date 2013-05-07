@@ -66,7 +66,13 @@ class FakeCloudFS(FakeFS):
         )
     def open(self, path, mode):
         if 'w' in mode: self._write = True
-        return self.create_object(path)
+        if 'r' in mode:
+            try:
+                return self.get_object(path)
+            except cloudfiles.errors.NoSuchObject:
+                raise IOError(2, 'No such file or directory')
+        else:
+            return self.create_object(path)
 
 class IterableThread(Thread):
     def __init__(self, storage_object):
@@ -215,7 +221,10 @@ class CloudFS(AbstractedFS):
     def isfile(self, path):
         """Return True if path is a file."""
         assert isinstance(path, unicode), path
-        s = self.lstat(path)
+        try:
+            s = self.lstat(path)
+        except OSError:
+            s = None
         if s: return stat.S_ISREG(s.st_mode)
         else: return False
 
