@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from cloudfiles.errors import ResponseError
 import datetime
 from os.path import basename
 import mimetypes
@@ -84,7 +85,10 @@ class FakeFS:
             self.set_fakefolders(fakefolders, path)
         else:
             container = self.get_container(path.container)
-            container.delete_object(path.directoryfilename)
+            try:
+                container.delete_object(path.directoryfilename)
+            except ResponseError:
+                pass
 
     def create_object(self, path):
         container = self.get_container(path.container)
