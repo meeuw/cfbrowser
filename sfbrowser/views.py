@@ -68,10 +68,10 @@ class SFBrowserFS(FakeFS):
             Config.objects.get(key='api_key').value,
             authurl=Config.objects.get(key='authurl').value,
         )
-    def uploading(self, path):
+    def uploading(self, path, request):
         storage_object = self.create_object(path)
         storage_object.send(B64stream(request))
-        return fileinfo(path.filename, "application/octet-stream", 0, 0)
+        return self.fileinfo(path.filename, "application/octet-stream", 0, 0)
 
     def download(self, path):
         return self.get_object(path)
@@ -109,9 +109,11 @@ def sfbrowser(request):
     elif ('a' in request.GET):
         if (request.GET['a'] == 'uploading'):
             sfbrowserfs.auth(request.user, True, True)
-            return sfbrowser.uploading(
+            return sfbrowserfs.uploading(
                 PathHelper(fulldirectory=request.GET['folder'],
-                    filename=request.META['HTTP_UP_FILENAME']))
+                    filename=request.META['HTTP_UP_FILENAME']),
+                request
+            )
         elif (request.GET['a'] == 'download'):
             sfbrowserfs.auth(request.user, True, False)
             path = PathHelper(fullpath=request.GET['file'])
